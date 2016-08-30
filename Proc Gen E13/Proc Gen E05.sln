@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{3A0DFDBB-8423-9DF8-16D2-2BEDACFA617E}") = "Proc Gen E05", "Assembly-CSharp.csproj", "{EC0B7224-AC33-412D-7F66-140C2E161358}"
+EndProject
+Project("{3A0DFDBB-8423-9DF8-16D2-2BEDACFA617E}") = "Proc Gen E05", "Assembly-CSharp-Editor.csproj", "{F1738A2C-08F6-BEAC-72FA-A757B6D00D69}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC0B7224-AC33-412D-7F66-140C2E161358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC0B7224-AC33-412D-7F66-140C2E161358}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC0B7224-AC33-412D-7F66-140C2E161358}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC0B7224-AC33-412D-7F66-140C2E161358}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1738A2C-08F6-BEAC-72FA-A757B6D00D69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1738A2C-08F6-BEAC-72FA-A757B6D00D69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1738A2C-08F6-BEAC-72FA-A757B6D00D69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1738A2C-08F6-BEAC-72FA-A757B6D00D69}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal

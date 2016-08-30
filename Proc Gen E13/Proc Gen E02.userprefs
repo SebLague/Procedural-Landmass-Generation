@@ -1,0 +1,15 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MapGenerator.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Noise.cs" Line="18" Column="11" />
+      <File FileName="Assets/Scripts/MapGenerator.cs" Line="10" Column="17" />
+      <File FileName="Assets/Scripts/MapDisplay.cs" Line="12" Column="4" />
+      <File FileName="Assets/Editor/MapGeneratorEditor.cs" Line="13" Column="27" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

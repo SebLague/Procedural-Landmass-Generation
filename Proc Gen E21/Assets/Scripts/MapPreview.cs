@@ -11,11 +11,17 @@ public class MapPreview : MonoBehaviour {
 	public enum DrawMode {NoiseMap, Mesh, FalloffMap};
 	public DrawMode drawMode;
 
+	public FalloffGenerator.FallOffType fallOffType;
+	[Range(0.0f, 1.0f)]
+	public float fallOffIntensity;
+
 	public MeshSettings meshSettings;
 	public HeightMapSettings heightMapSettings;
 	public TextureData textureData;
 
 	public Material terrainMaterial;
+
+	public NoiseSettings[] noiseSettingsListener;
 
 
 
@@ -29,14 +35,14 @@ public class MapPreview : MonoBehaviour {
 	public void DrawMapInEditor() {
 		textureData.ApplyToMaterial (terrainMaterial);
 		textureData.UpdateMeshHeights (terrainMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight);
-		HeightMap heightMap = HeightMapGenerator.GenerateHeightMap (meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, Vector2.zero);
+		HeightMap heightMap = HeightMapGenerator.GenerateHeightMap (meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, FalloffGenerator.FallOffType.None, heightMapSettings, Vector2.zero);
 
 		if (drawMode == DrawMode.NoiseMap) {
 			DrawTexture (TextureGenerator.TextureFromHeightMap (heightMap));
 		} else if (drawMode == DrawMode.Mesh) {
 			DrawMesh (MeshGenerator.GenerateTerrainMesh (heightMap.values,meshSettings, editorPreviewLOD));
 		} else if (drawMode == DrawMode.FalloffMap) {
-			DrawTexture(TextureGenerator.TextureFromHeightMap(new HeightMap(FalloffGenerator.GenerateFalloffMap(meshSettings.numVertsPerLine),0,1)));
+			DrawTexture(TextureGenerator.TextureFromHeightMap(new HeightMap(FalloffGenerator.GenerateFalloffMap(meshSettings.numVertsPerLine, fallOffType, fallOffIntensity),0,1)));
 		}
 	}
 
@@ -72,6 +78,15 @@ public class MapPreview : MonoBehaviour {
 	}
 
 	void OnValidate() {
+
+		for (int i = 0; i<noiseSettingsListener.Length; i++)
+		{
+			if (noiseSettingsListener[i] != null)
+			{
+				noiseSettingsListener[i].OnValuesUpdated -= OnValuesUpdated;
+				noiseSettingsListener[i].OnValuesUpdated += OnValuesUpdated;
+            }
+		}
 
 		if (meshSettings != null) {
 			meshSettings.OnValuesUpdated -= OnValuesUpdated;

@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22f82a005245ce8429addea428a79d0c, type: 3}
+  m_Name: HMSettings
+  m_EditorClassIdentifier: 
+  autoUpdate: 1
+  noiseLayers:
+  - noiseSettings: {fileID: 11400000, guid: 22cd561dd60059644930c4219aa774e1, type: 2}
+    strength: 1
+  - noiseSettings: {fileID: 11400000, guid: 5781622e03fbcd743a22b972001ca59b, type: 2}
+    strength: 0.279
+  - noiseSettings: {fileID: 11400000, guid: 46cf976dc211b08469f46ad77321fd51, type: 2}
+    strength: 0.38
+  heightMultiplier: 350
+  fallOffIntensity: 0.614
+  heightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0

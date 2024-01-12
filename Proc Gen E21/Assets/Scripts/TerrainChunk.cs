@@ -2,7 +2,7 @@
 
 public class TerrainChunk {
 	
-	const float colliderGenerationDistanceThreshold = 5;
+	const float colliderGenerationDistanceThreshold = 25;
 	public event System.Action<TerrainChunk, bool> onVisibilityChanged;
 	public Vector2 coord;
 	 
@@ -28,13 +28,16 @@ public class TerrainChunk {
 	MeshSettings meshSettings;
 	Transform viewer;
 
-	public TerrainChunk(Vector2 coord, HeightMapSettings heightMapSettings, MeshSettings meshSettings, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, Material material) {
+	FalloffGenerator.FallOffType fallOffType;
+
+	public TerrainChunk(Vector2 coord, FalloffGenerator.FallOffType fallOffType, HeightMapSettings heightMapSettings, MeshSettings meshSettings, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, Material material) {
 		this.coord = coord;
 		this.detailLevels = detailLevels;
 		this.colliderLODIndex = colliderLODIndex;
 		this.heightMapSettings = heightMapSettings;
 		this.meshSettings = meshSettings;
 		this.viewer = viewer;
+		this.fallOffType = fallOffType;
 
 		sampleCentre = coord * meshSettings.meshWorldSize / meshSettings.meshScale;
 		Vector2 position = coord * meshSettings.meshWorldSize ;
@@ -65,7 +68,7 @@ public class TerrainChunk {
 	}
 
 	public void Load() {
-		ThreadedDataRequester.RequestData(() => HeightMapGenerator.GenerateHeightMap (meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, sampleCentre), OnHeightMapReceived);
+		ThreadedDataRequester.RequestData(() => HeightMapGenerator.GenerateHeightMap (meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, fallOffType, heightMapSettings, sampleCentre), OnHeightMapReceived);
 	}
 
 
@@ -75,6 +78,7 @@ public class TerrainChunk {
 		heightMapReceived = true;
 
 		UpdateTerrainChunk ();
+		UpdateCollisionMesh();
 	}
 
 	Vector2 viewerPosition {

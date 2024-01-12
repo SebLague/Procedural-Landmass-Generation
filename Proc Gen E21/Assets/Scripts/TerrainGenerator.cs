@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class TerrainGenerator : MonoBehaviour {
 
-	const float viewerMoveThresholdForChunkUpdate = 25f;
+	const float viewerMoveThresholdForChunkUpdate = 10f;
 	const float sqrViewerMoveThresholdForChunkUpdate = viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
 
 
@@ -17,6 +17,9 @@ public class TerrainGenerator : MonoBehaviour {
 
 	public Transform viewer;
 	public Material mapMaterial;
+
+	public Vector2 mapSize;
+	Vector2 mapSizeInChunks;
 
 	Vector2 viewerPosition;
 	Vector2 viewerPositionOld;
@@ -35,6 +38,8 @@ public class TerrainGenerator : MonoBehaviour {
 		float maxViewDst = detailLevels [detailLevels.Length - 1].visibleDstThreshold;
 		meshWorldSize = meshSettings.meshWorldSize;
 		chunksVisibleInViewDst = Mathf.RoundToInt(maxViewDst / meshWorldSize);
+
+		mapSizeInChunks = new Vector2(Mathf.RoundToInt(mapSize.x / meshWorldSize), Mathf.RoundToInt(mapSize.y / meshWorldSize));
 
 		UpdateVisibleChunks ();
 	}
@@ -71,15 +76,57 @@ public class TerrainGenerator : MonoBehaviour {
 					if (terrainChunkDictionary.ContainsKey (viewedChunkCoord)) {
 						terrainChunkDictionary [viewedChunkCoord].UpdateTerrainChunk ();
 					} else {
-						TerrainChunk newChunk = new TerrainChunk (viewedChunkCoord,heightMapSettings,meshSettings, detailLevels, colliderLODIndex, transform, viewer, mapMaterial);
-						terrainChunkDictionary.Add (viewedChunkCoord, newChunk);
-						newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
-						newChunk.Load ();
+						AddNewChunk (viewedChunkCoord);
 					}
 				}
 
 			}
 		}
+	}
+
+	void AddNewChunk(Vector2 viewedChunkCoord)
+	{
+		FalloffGenerator.FallOffType fallOffType = FalloffGenerator.FallOffType.None;
+		if (Mathf.Abs(viewedChunkCoord.x) > mapSizeInChunks.x + 1 || Mathf.Abs(viewedChunkCoord.y) > mapSizeInChunks.y + 1) {
+			fallOffType = FalloffGenerator.FallOffType.Ocean;
+		}
+		else if (viewedChunkCoord.x == mapSizeInChunks.x + 1)
+		{
+			if (viewedChunkCoord.y == mapSizeInChunks.y + 1)
+			{
+				fallOffType = FalloffGenerator.FallOffType.NECoast;
+			}
+			else if (viewedChunkCoord.y == -mapSizeInChunks.y - 1)
+			{
+				fallOffType = FalloffGenerator.FallOffType.SECoast;
+			}
+			else fallOffType = FalloffGenerator.FallOffType.EastCoast;
+		}
+		else if (viewedChunkCoord.x == -mapSizeInChunks.x - 1)
+		{
+			if (viewedChunkCoord.y == -mapSizeInChunks.y - 1)
+			{
+				fallOffType = FalloffGenerator.FallOffType.SWCoast;
+			}
+			else if (viewedChunkCoord.y == mapSizeInChunks.y + 1)
+			{
+				fallOffType = FalloffGenerator.FallOffType.NWCoast;
+			}
+			else fallOffType = FalloffGenerator.FallOffType.WestCoast;
+		}
+		else if (viewedChunkCoord.y == mapSizeInChunks.y + 1)
+		{
+			fallOffType = FalloffGenerator.FallOffType.NorthCoast;
+		}
+		else if (viewedChunkCoord.y == -mapSizeInChunks.y - 1)
+		{
+			fallOffType = FalloffGenerator.FallOffType.SouthCoast;
+		}
+
+		TerrainChunk newChunk = new TerrainChunk(viewedChunkCoord, fallOffType, heightMapSettings, meshSettings, detailLevels, colliderLODIndex, transform, viewer, mapMaterial);
+		terrainChunkDictionary.Add(viewedChunkCoord, newChunk);
+		newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
+		newChunk.Load();
 	}
 
 	void OnTerrainChunkVisibilityChanged(TerrainChunk chunk, bool isVisible) {

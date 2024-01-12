@@ -30,7 +30,7 @@ public class TerrainChunk {
 
 	FalloffGenerator.FallOffType fallOffType;
 
-    public TerrainChunk(Vector2 coord, FalloffGenerator.FallOffType fallOffType, HeightMapSettings heightMapSettings, MeshSettings meshSettings, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, Material material) {
+	public TerrainChunk(Vector2 coord, FalloffGenerator.FallOffType fallOffType, HeightMapSettings heightMapSettings, MeshSettings meshSettings, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, Material material) {
 		this.coord = coord;
 		this.detailLevels = detailLevels;
 		this.colliderLODIndex = colliderLODIndex;

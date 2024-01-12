@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UIElements;
 
 [CreateAssetMenu()]
 public class HeightMapSettings : UpdatableData {
@@ -11,7 +10,7 @@ public class HeightMapSettings : UpdatableData {
 	public float fallOffIntensity;
 	public AnimationCurve heightCurve;
 
-    public float minHeight {
+	public float minHeight {
 		get {
 			return heightMultiplier * heightCurve.Evaluate (0);
 		}

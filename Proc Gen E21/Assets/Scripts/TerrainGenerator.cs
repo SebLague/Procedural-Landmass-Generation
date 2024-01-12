@@ -13,7 +13,7 @@ public class TerrainGenerator : MonoBehaviour {
 
 	public MeshSettings meshSettings;
 	public HeightMapSettings heightMapSettings;
-    public TextureData textureSettings;
+	public TextureData textureSettings;
 
 	public Transform viewer;
 	public Material mapMaterial;
@@ -88,46 +88,46 @@ public class TerrainGenerator : MonoBehaviour {
 	{
 		FalloffGenerator.FallOffType fallOffType = FalloffGenerator.FallOffType.None;
 		if (Mathf.Abs(viewedChunkCoord.x) > mapSizeInChunks.x + 1 || Mathf.Abs(viewedChunkCoord.y) > mapSizeInChunks.y + 1) {
-            fallOffType = FalloffGenerator.FallOffType.Ocean;
-        }
-        else if (viewedChunkCoord.x == mapSizeInChunks.x + 1)
+			fallOffType = FalloffGenerator.FallOffType.Ocean;
+		}
+		else if (viewedChunkCoord.x == mapSizeInChunks.x + 1)
 		{
 			if (viewedChunkCoord.y == mapSizeInChunks.y + 1)
 			{
-                fallOffType = FalloffGenerator.FallOffType.NECoast;
-            }
-            else if (viewedChunkCoord.y == -mapSizeInChunks.y - 1)
-            {
-                fallOffType = FalloffGenerator.FallOffType.SECoast;
-            }
-            else fallOffType = FalloffGenerator.FallOffType.EastCoast;
+				fallOffType = FalloffGenerator.FallOffType.NECoast;
+			}
+			else if (viewedChunkCoord.y == -mapSizeInChunks.y - 1)
+			{
+				fallOffType = FalloffGenerator.FallOffType.SECoast;
+			}
+			else fallOffType = FalloffGenerator.FallOffType.EastCoast;
 		}
-        else if (viewedChunkCoord.x == -mapSizeInChunks.x - 1)
-        {
-            if (viewedChunkCoord.y == -mapSizeInChunks.y - 1)
-            {
-                fallOffType = FalloffGenerator.FallOffType.SWCoast;
-            }
-            else if (viewedChunkCoord.y == mapSizeInChunks.y + 1)
-            {
-                fallOffType = FalloffGenerator.FallOffType.NWCoast;
-            }
-            else fallOffType = FalloffGenerator.FallOffType.WestCoast;
-        }
-        else if (viewedChunkCoord.y == mapSizeInChunks.y + 1)
-        {
-            fallOffType = FalloffGenerator.FallOffType.NorthCoast;
-        }
-        else if (viewedChunkCoord.y == -mapSizeInChunks.y - 1)
-        {
-            fallOffType = FalloffGenerator.FallOffType.SouthCoast;
-        }
+		else if (viewedChunkCoord.x == -mapSizeInChunks.x - 1)
+		{
+			if (viewedChunkCoord.y == -mapSizeInChunks.y - 1)
+			{
+				fallOffType = FalloffGenerator.FallOffType.SWCoast;
+			}
+			else if (viewedChunkCoord.y == mapSizeInChunks.y + 1)
+			{
+				fallOffType = FalloffGenerator.FallOffType.NWCoast;
+			}
+			else fallOffType = FalloffGenerator.FallOffType.WestCoast;
+		}
+		else if (viewedChunkCoord.y == mapSizeInChunks.y + 1)
+		{
+			fallOffType = FalloffGenerator.FallOffType.NorthCoast;
+		}
+		else if (viewedChunkCoord.y == -mapSizeInChunks.y - 1)
+		{
+			fallOffType = FalloffGenerator.FallOffType.SouthCoast;
+		}
 
-        TerrainChunk newChunk = new TerrainChunk(viewedChunkCoord, fallOffType, heightMapSettings, meshSettings, detailLevels, colliderLODIndex, transform, viewer, mapMaterial);
-        terrainChunkDictionary.Add(viewedChunkCoord, newChunk);
-        newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
-        newChunk.Load();
-    }
+		TerrainChunk newChunk = new TerrainChunk(viewedChunkCoord, fallOffType, heightMapSettings, meshSettings, detailLevels, colliderLODIndex, transform, viewer, mapMaterial);
+		terrainChunkDictionary.Add(viewedChunkCoord, newChunk);
+		newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
+		newChunk.Load();
+	}
 
 	void OnTerrainChunkVisibilityChanged(TerrainChunk chunk, bool isVisible) {
 		if (isVisible) {

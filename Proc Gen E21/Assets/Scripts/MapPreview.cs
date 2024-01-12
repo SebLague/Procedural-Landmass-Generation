@@ -7,7 +7,6 @@ public class MapPreview : MonoBehaviour {
 	public MeshFilter meshFilter;
 	public MeshRenderer meshRenderer;
 
-
 	public enum DrawMode {NoiseMap, Mesh, FalloffMap};
 	public DrawMode drawMode;
 
@@ -23,14 +22,9 @@ public class MapPreview : MonoBehaviour {
 
 	public NoiseSettings[] noiseSettingsListener;
 
-
-
 	[Range(0,MeshSettings.numSupportedLODs-1)]
 	public int editorPreviewLOD;
 	public bool autoUpdate;
-
-
-
 
 	public void DrawMapInEditor() {
 		textureData.ApplyToMaterial (terrainMaterial);
@@ -85,7 +79,7 @@ public class MapPreview : MonoBehaviour {
 			{
 				noiseSettingsListener[i].OnValuesUpdated -= OnValuesUpdated;
 				noiseSettingsListener[i].OnValuesUpdated += OnValuesUpdated;
-            }
+			}
 		}
 
 		if (meshSettings != null) {

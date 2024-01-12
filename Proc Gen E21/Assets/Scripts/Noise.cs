@@ -54,7 +54,7 @@ public static class Noise {
 			}
 		}
 
-        return noiseMap;
+		return noiseMap;
 	}
 
 }
